@@ -1,0 +1,17 @@
+.profile__add {
+    background-color: #000;
+    border: 1px solid #fff;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    transition: 1s ease-out;
+}
+.profile__add:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 425px){
+    .profile__add {
+    width: 282px;
+    }
+}

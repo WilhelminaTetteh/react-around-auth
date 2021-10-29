@@ -1,0 +1,7 @@
+.profile__image {
+    max-width: 120px;
+    min-height: 120px;
+    border-radius: 50%;
+    /* display: none; */
+    z-index: 1;
+}
