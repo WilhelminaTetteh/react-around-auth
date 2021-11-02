@@ -2,6 +2,8 @@ import React from "react";
 import pencil from "../images/pencil.svg";
 import add from "../images/add.svg";
 import Card from "./Card";
+// import Footer from "./Footer";
+
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main(props) {
@@ -43,7 +45,11 @@ function Main(props) {
           aria-label="add"
           onClick={props.onAddPlaceClick}
         >
-          <img className="profile__add-icon" src={add} alt="plus sign" />
+          <img
+            className="profile__add-icon"
+            src={add}
+            alt="plus sign"
+          />
         </button>
       </section>
       <section className="grid">

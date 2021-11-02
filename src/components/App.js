@@ -9,16 +9,34 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-
+import { Route, Switch, Redirect } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute.js";
 function App() {
   // State variable and setters
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] =
+    useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  //
+  //Sprint 14
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  //LOG IN
+  const handleLogin = () => {
+    //Do something
+    setLoggedIn(true);
+  };
+
+  //
+  //
 
   useEffect(() => {
     api
@@ -74,7 +92,7 @@ function App() {
       .updateUserInfo({ name, about })
       .then((res) => {
         setCurrentUser(res);
-        closeAllPopups()
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +114,7 @@ function App() {
   function handleCardLike(card) {
     // Check one more time if this card was already liked
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    
+
     // Send a request to the API and getting the updated card data
     if (!isLiked) {
       api
@@ -110,19 +128,20 @@ function App() {
           console.log(err);
         });
     } else {
-       api.deleteLike(card._id).then((newCard) => {
-         setCards((state) =>
-           state.map((c) => (c._id === card._id ? newCard : c))
-         );
-       })
-      .catch((err) => {
-        console.log(err);
-      });
+      api
+        .deleteLike(card._id)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-   
   }
   function handleCardDelete(card) {
-    // After the API request, update the cards state using the filter() method. Create a copy 
+    // After the API request, update the cards state using the filter() method. Create a copy
     // of the array and exclude the deleted card from it.
     api
       .removeCard(card._id)
@@ -144,7 +163,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-
   }
 
   return (
@@ -152,15 +170,34 @@ function App() {
       <div className="page__container">
         <CurrentUserContext.Provider value={currentUser}>
           <Header />
-          <Main
-            onEditAvatarClick={handleEditAvatarClick}
-            onEditProfileClick={handleEditProfileClick}
-            onAddPlaceClick={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
+          <Switch>
+            <ProtectedRoute
+              component={Main}
+              exact
+              path="/"
+              loggedIn={loggedIn}
+              onEditAvatarClick={handleEditAvatarClick}
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+            <Route path="/signup">
+              <Register />
+            </Route>
+            <Route path="/signin">
+              <Login />
+            </Route>
+            <Route exact path="/">
+              {loggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <Redirect to="/signin" />
+              )}
+            </Route>
+          </Switch>
 
           <Footer />
           <EditProfilePopup
@@ -168,19 +205,19 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-         
+
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
           />
-          
+
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
           />
-         
+
           <PopupWithForm name={`delete`} title={`Are you sure?`}>
             <button
               type="button"
