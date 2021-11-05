@@ -9,10 +9,17 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute.js";
+import * as auth from "../utils/auth";
+
 function App() {
   // State variable and setters
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -25,18 +32,43 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  //
-  //Sprint 14
+  //loggedin state
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const history = useHistory();
+  //HANDLE AUTHENTICATION
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   //LOG IN
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     //Do something
     setLoggedIn(true);
   };
 
-  //
-  //
+  const tokenCheck = () => {
+    // if user has a token in storage, check if it is valid
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      // make the request
+      auth.getContent(jwt).then((res) => {
+        // if response is successful, log in the user
+        if (res) {
+          handleLogin();
+          console.log("was logged in");
+          // also push user to wherever logged in user's should go
+          return history.push("/");
+        }
+        console.log("something went wrong- tokencheck");
+      });
+    }
+  };
 
   useEffect(() => {
     api
@@ -188,7 +220,10 @@ function App() {
               <Register />
             </Route>
             <Route path="/signin">
-              <Login />
+              <Login
+                handleLogin={handleLogin}
+                tokenCheck={tokenCheck}
+              />
             </Route>
             <Route exact path="/">
               {loggedIn ? (

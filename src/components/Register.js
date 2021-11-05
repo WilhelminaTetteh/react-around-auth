@@ -9,7 +9,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  let history = useHistory();
+  const history = useHistory();
 
   // use it in the submission handler
   const handleSubmit = (e) => {
@@ -23,7 +23,9 @@ const Register = () => {
           history.push("/signin");
           return res;
         });
+      console.log("res good");
     } else {
+      console.log("res bad");
       return setMessage(
         "400 - one of the fields was filled in incorrectly"
       );
@@ -40,6 +42,7 @@ const Register = () => {
             placeholder="Email"
             type="email"
             value={email}
+            style={{ color: "red" }}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
@@ -48,6 +51,7 @@ const Register = () => {
             type="password"
             placeholder="Password"
             value={password}
+            style={{ color: "red" }}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={handleSubmit} className="register__submit">

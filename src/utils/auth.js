@@ -47,3 +47,19 @@ export const authorize = (email, password) => {
     })
     .catch((err) => console.log(err));
 };
+//  NOTE  we pass this route the token as a parameter, and use that token in the Authorization header
+export const getContent = (token) => {
+  return (
+    fetch(`${BASE_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      // NOTE   received data will include user data, such as email
+      .then((data) => data)
+  );
+};
