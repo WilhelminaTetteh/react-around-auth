@@ -36,9 +36,9 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   // NOTE  use userData to show user email on the nav
   const [userData, setUserData] = useState({});
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [message, setMessage] = useState("");
 
   const history = useHistory();
   //HANDLE AUTHENTICATION
