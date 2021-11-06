@@ -19,6 +19,7 @@ export const register = (email, password) => {
       })
       .then((res) => {
         // return the parsed data to client, this data includes a unique, signed JWT
+        console.log(res);
         return res;
       })
       // catch all errors
@@ -39,9 +40,9 @@ export const authorize = (email, password) => {
     .then((response) => response.json())
     .then((data) => {
       // does data have a jwt in it?
-      if (data.jwt) {
+      if (data.token) {
         // if so, save it to local storage and return data
-        localStorage.setItem("jwt", data.jwt);
+        localStorage.setItem("jwt", data.token);
         return data;
       }
     })
@@ -60,6 +61,8 @@ export const getContent = (token) => {
     })
       .then((res) => res.json())
       // NOTE   received data will include user data, such as email
-      .then((data) => data)
+      .then((data) => {
+        return data;
+      })
   );
 };

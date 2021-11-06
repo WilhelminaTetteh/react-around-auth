@@ -34,6 +34,8 @@ function App() {
   const [cards, setCards] = useState([]);
   //loggedin state
   const [loggedIn, setLoggedIn] = React.useState(false);
+  // NOTE  use userData to show user email on the nav
+  const [userData, setUserData] = useState({});
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -46,8 +48,8 @@ function App() {
   }, []);
 
   //LOG IN
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = () => {
+    // e.preventDefault(); ..
     //Do something
     setLoggedIn(true);
   };
@@ -60,8 +62,11 @@ function App() {
       auth.getContent(jwt).then((res) => {
         // if response is successful, log in the user
         if (res) {
+          const userData = {
+            email: res.email,
+          };
           handleLogin();
-          console.log("was logged in");
+          setUserData(userData);
           // also push user to wherever logged in user's should go
           return history.push("/");
         }
@@ -201,7 +206,7 @@ function App() {
     <div className="page">
       <div className="page__container">
         <CurrentUserContext.Provider value={currentUser}>
-          <Header />
+          <Header userData={userData} />
           <Switch>
             <ProtectedRoute
               component={Main}

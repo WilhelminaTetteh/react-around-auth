@@ -19,6 +19,7 @@ const Login = ({ handleLogin }) => {
       // handle invalid entries appropriately
       return;
     }
+
     auth
       .authorize(email, password)
       .then((data) => {
@@ -27,7 +28,7 @@ const Login = ({ handleLogin }) => {
             "one or more of the fields were not provided"
           );
         }
-        if (data.jwt) {
+        if (data) {
           // reset the state
           setEmail("");
           setPassword("");
@@ -39,7 +40,7 @@ const Login = ({ handleLogin }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
