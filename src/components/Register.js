@@ -23,9 +23,9 @@ const Register = () => {
           history.push("/signin");
           return res;
         });
-      console.log("res good");
+      // console.log("res good");
     } else {
-      console.log("res bad");
+      // console.log("res bad");
       return setMessage(
         "400 - one of the fields was filled in incorrectly"
       );

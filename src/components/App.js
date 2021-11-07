@@ -67,7 +67,7 @@ function App() {
           };
           handleLogin();
           setUserData(userData);
-          // also push user to wherever logged in user's should go
+          // also push user to the Home Page
           return history.push("/");
         }
         console.log("something went wrong- tokencheck");
