@@ -1,0 +1,21 @@
+.header__signup {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signup:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signup:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signup:active {
+  color: #ffffff;
+  text-decoration: none;
+}
