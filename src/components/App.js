@@ -68,24 +68,23 @@ function App() {
         console.log(err);
       });
   }, []);
-
-  //Registration
+  // REGISTRATION
   const handleRegistration = (email, password) => {
-    auth
-      .register(email, password)
-      .then((res) => {
-        if (res) {
-          //show success in infoTooltip
+    if (email && password) {
+      auth
+        .register(email, password)
+        // We only want to redirect users after the registration form has been properly submitted
+        .then((res) => {
           history.push("/signin");
-        } else {
-          //show user it was not successful and open tooltip
-          // console.log("res bad");
-          return setMessage(
-            "400 - one of the fields was filled in incorrectly"
-          );
-        }
-      })
-      .catch();
+          return res;
+        });
+      console.log("res good");
+    } else {
+      console.log("res bad");
+      return setMessage(
+        "400 - one of the fields was filled in incorrectly"
+      );
+    }
   };
 
   //LOG IN
