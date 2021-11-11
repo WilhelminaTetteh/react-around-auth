@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as auth from "../utils/auth";
 import { useHistory } from "react-router";
 
-const Register = () => {
+const Register = ({ handleRegistration }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -12,25 +12,32 @@ const Register = () => {
   const history = useHistory();
 
   // use it in the submission handler
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   //TO-DO- handle Registration
+  //   if (email && password) {
+  //     auth
+  //       .register(email, password)
+  //       // We only want to redirect users after the registration form has been properly submitted
+  //       .then((res) => {
+  //         history.push("/signin");
+  //         return res;
+  //       });
+  //     // console.log("res good");
+  //   } else {
+  //     // console.log("res bad");
+  //     return setMessage(
+  //       "400 - one of the fields was filled in incorrectly"
+  //     );
+  //   }
+  // };
+
+  //Handle Signin Submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    //TO-DO- handle Registration
-    if (email && password) {
-      auth
-        .register(email, password)
-        // We only want to redirect users after the registration form has been properly submitted
-        .then((res) => {
-          history.push("/signin");
-          return res;
-        });
-      // console.log("res good");
-    } else {
-      // console.log("res bad");
-      return setMessage(
-        "400 - one of the fields was filled in incorrectly"
-      );
-    }
+    handleRegistration(email, password);
   };
+
   return (
     <>
       <div className="register">

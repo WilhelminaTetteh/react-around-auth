@@ -38,11 +38,11 @@ function App() {
   const [userData, setUserData] = useState({});
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  // const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const history = useHistory();
 
-  //HANDLE AUTHENTICATION
+  //HANDLE AUTHENTICATIONe
 
   useEffect(() => {
     tokenCheck();
@@ -70,6 +70,23 @@ function App() {
   }, []);
 
   //Registration
+  const handleRegistration = (email, password) => {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res) {
+          //show success in infoTooltip
+          history.push("/signin");
+        } else {
+          //show user it was not successful and open tooltip
+          // console.log("res bad");
+          return setMessage(
+            "400 - one of the fields was filled in incorrectly"
+          );
+        }
+      })
+      .catch();
+  };
 
   //LOG IN
   const handleLogin = () => {
@@ -225,7 +242,7 @@ function App() {
               onCardDelete={handleCardDelete}
             />
             <Route path="/signup">
-              <Register />
+              <Register handleRegistration={handleRegistration} />
             </Route>
             <Route path="/signin">
               <Login
