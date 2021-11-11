@@ -19,29 +19,29 @@ const Login = ({ handleLogin }) => {
       // handle invalid entries appropriately
       return;
     }
-
-    auth
-      .authorize(email, password)
-      .then((data) => {
-        if (!data) {
-          return setMessage(
-            "one or more of the fields were not provided"
-          );
-        }
-        if (data) {
-          // reset the state
-          setEmail("");
-          setPassword("");
-          // TODO  handle login
-          handleLogin();
-          // redirect user to /profile
-          history.push("/");
-          return;
-        }
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
+    handleLogin(email, password);
+    // auth
+    //   .authorize(email, password)
+    //   .then((data) => {
+    //     if (!data) {
+    //       return setMessage(
+    //         "one or more of the fields were not provided"
+    //       );
+    //     }
+    //     if (data) {
+    //       // reset the state
+    //       setEmail("");
+    //       setPassword("");
+    //       // TODO  handle login
+    //       handleLogin();
+    //       // redirect user to /profile
+    //       history.push("/");
+    //       return;
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     // console.log(err);
+    //   });
   };
 
   return (
