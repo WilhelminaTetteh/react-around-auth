@@ -36,16 +36,40 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   // NOTE  use userData to show user email on the nav
   const [userData, setUserData] = useState({});
-  // const [password, setPassword] = useState("");
-  // const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   // const [message, setMessage] = useState("");
 
   const history = useHistory();
+
   //HANDLE AUTHENTICATION
 
   useEffect(() => {
     tokenCheck();
   }, []);
+
+  useEffect(() => {
+    api
+      .getInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  useEffect(() => {
+    api
+      .getCardList()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //Registration
 
   //LOG IN
   const handleLogin = () => {
@@ -74,27 +98,6 @@ function App() {
       });
     }
   };
-
-  useEffect(() => {
-    api
-      .getInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  useEffect(() => {
-    api
-      .getCardList()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   //handlers for opening modals
   function handleEditAvatarClick() {

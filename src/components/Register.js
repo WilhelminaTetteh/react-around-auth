@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as auth from "../utils/auth";
-// import { useHistory } from "react-router";
+import { useHistory } from "react-router";
 
 const Register = () => {
   const [password, setPassword] = useState("");
