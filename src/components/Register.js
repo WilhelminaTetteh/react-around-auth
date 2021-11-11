@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 
 const Register = () => {
   const [password, setPassword] = useState("");
@@ -34,35 +34,35 @@ const Register = () => {
   return (
     <>
       <div className="register">
-        <p className="register__title">Sign Up</p>
         <form className="register__form">
+          <p className="register__title">Sign Up</p>
           <input
-            className="register__form-email"
+            className="register__form-email register__input"
             name="email"
             placeholder="Email"
             type="email"
             value={email}
-            style={{ color: "red" }}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="register__form-password"
+            className="register__form-password register__input"
             name="password"
             type="password"
             placeholder="Password"
             value={password}
-            style={{ color: "red" }}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={handleSubmit} className="register__submit">
             Sign up
           </button>
+          {/* link to login page */}
+          <p className="register__text">
+            <Link className="register__link" to="/signin">
+              {" "}
+              Already a member? Log in here
+            </Link>
+          </p>
         </form>
-
-        {/* link to login page */}
-        <p>
-          Already a member? Log in <Link to="/signin">here</Link>
-        </p>
       </div>
     </>
   );

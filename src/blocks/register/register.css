@@ -1,6 +1,16 @@
+@import url("./__form/register__form.css");
+@import url("./__title/register__title.css");
+@import url("./__input/register__input.css");
+@import url("./__submit/register__submit.css");
+@import url("./__link/register__link.css");
+@import url("./__text/register__text.css");
+
 .register {
-  background-color: aqua;
-}
-.register__title{
-  
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 9.98% 13.3%; */
+  color: #000;
+  width: 100%;
 }

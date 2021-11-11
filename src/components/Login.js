@@ -47,35 +47,35 @@ const Login = ({ handleLogin }) => {
   return (
     <>
       <div className="login">
-        <p className="login__title">Log in</p>
         <form className="login__form" onSubmit={handleSubmit}>
+          <p className="login__title">Log in</p>
           <input
-            className="login__form-email"
+            className="login__form-email login__input"
             name="email"
             placeholder="Email"
             type="email"
             value={email}
-            style={{ color: "red" }}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="login__form-password"
+            className="login__form-password login__input"
             name="password"
             type="password"
             placeholder="Password"
             value={password}
-            style={{ color: "red" }}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={handleSubmit} className="login__submit">
             Log in
           </button>
+          {/* link to login page */}
+          <p className="login__text">
+            <Link className="login__link" to="/signup">
+              {" "}
+              Not a member? Sign Up here
+            </Link>
+          </p>
         </form>
-
-        {/* link to login page */}
-        <p>
-          Not a member? Sign Up <Link to="/signup">here</Link>
-        </p>
       </div>
     </>
   );

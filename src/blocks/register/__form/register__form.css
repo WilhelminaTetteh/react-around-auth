@@ -1,0 +1,7 @@
+.register__form {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  width: 358px;
+  margin: 60px 0 80px 0;
+}

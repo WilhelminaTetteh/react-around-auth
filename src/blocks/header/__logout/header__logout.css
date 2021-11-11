@@ -1,0 +1,21 @@
+.header__logout {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__logout:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__logout:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__logout:active {
+  color: #ffffff;
+  text-decoration: none;
+}

@@ -1,0 +1,21 @@
+.header__signin {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signin:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signin:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.header__signin:active {
+  color: #ffffff;
+  text-decoration: none;
+}
