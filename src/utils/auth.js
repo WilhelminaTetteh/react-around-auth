@@ -2,29 +2,25 @@ export const BASE_URL = "https://register.nomoreparties.co";
 
 export const register = (email, password) => {
   // your url will be different, of course
-  return (
-    fetch(`${BASE_URL}/signup`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  })
+    .then((response) => {
+      // if response returns 201-created, parse the data and return to next handler
+      if (response.status === 201) {
+        return response.json();
+      }
     })
-      .then((response) => {
-        // if response returns 201-created, parse the data and return to next handler
-        if (response.status === 201) {
-          return response.json();
-        }
-      })
-      .then((res) => {
-        // return the parsed data to client, this data includes a unique, signed JWT
-        console.log(res);
-        return res;
-      })
-      // catch all errors
-      .catch((err) => console.log(err))
-  );
+    .then((res) => {
+      // return the parsed data to client, this data includes a unique, signed JWT
+      console.log(res);
+      return res;
+    });
 };
 
 //Authorize User
@@ -45,8 +41,7 @@ export const authorize = (email, password) => {
         localStorage.setItem("jwt", data.token);
         return data;
       }
-    })
-    .catch((err) => console.log(err));
+    });
 };
 //  NOTE  we pass this route the token as a parameter, and use that token in the Authorization header
 export const getContent = (token) => {
