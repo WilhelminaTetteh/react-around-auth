@@ -7,7 +7,7 @@
   color: #ffffff;
   text-decoration: none;
 }
-.header__signup:visited {
+.header__signup:focus {
   color: #ffffff;
   text-decoration: none;
 }
