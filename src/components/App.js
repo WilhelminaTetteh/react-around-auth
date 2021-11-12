@@ -107,7 +107,7 @@ function App() {
           );
         }
         if (data) {
-          // set state again
+          // set email
           setEmail(email);
           // TODO  handle login
           setLoggedIn(true);

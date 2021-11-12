@@ -9,6 +9,7 @@
   border: solid #ffffff;
   color: #000;
 }
-.register__submit:active {
-  color: #000;
+.register__submit:hover {
+  background: #ffffff;
+  opacity: 0.85;
 }

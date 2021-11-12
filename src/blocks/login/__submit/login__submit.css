@@ -9,6 +9,7 @@
   border: solid #ffffff;
   color: #000;
 }
-.login__submit:active {
-  color: #000;
+.login__submit:hover {
+  background: #ffffff;
+  opacity: 0.85;
 }
