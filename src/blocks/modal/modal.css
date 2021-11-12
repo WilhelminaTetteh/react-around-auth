@@ -10,6 +10,9 @@
 @import url(./_type/modal_type_add-card.css);
 @import url(./_type/modal_type_image.css);
 @import url(./__add-button/modal__add-button.css);
+@import url(./__infotooltip/modal__infotooltip.css);
+@import url(./__infotooltip-icon/modal__infotooltip-icon.css);
+@import url(./__infotooltip-text/modal__infotooltip-text.css);
 .modal {
   background: #0000007d;
   display: flex;

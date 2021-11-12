@@ -18,6 +18,7 @@ import {
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute.js";
+import InfoToolTip from "./InfoTooltip";
 import * as auth from "../utils/auth";
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  // NOTE : info tooltip original state
+  const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] =
+    useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -41,6 +45,7 @@ function App() {
   const [message, setMessage] = useState("");
 
   const history = useHistory();
+  const [isSuccessful, setIsSuccessful] = React.useState(false);
 
   //HANDLE AUTHENTICATIONe
 
@@ -75,12 +80,16 @@ function App() {
         .register(email, password)
         // We only want to redirect users after the registration form has been properly submitted
         .then((res) => {
+          setIsSuccessful(true);
+          setIsInfoToolTipPopupOpen(true);
           history.push("/signin");
           return res;
         });
-      console.log("res good");
+      // console.log("res good");
     } else {
-      console.log("res bad");
+      setIsSuccessful(false);
+      setIsInfoToolTipPopupOpen(true);
+      // console.log("res bad");
       return setMessage(
         "400 - one of the fields was filled in incorrectly"
       );
@@ -153,6 +162,10 @@ function App() {
     setSelectedCard({ name, link });
     setIsImagePopupOpen(true);
   }
+  // NOTE :Handle info tooltip
+  function handleInfoTooltip() {
+    setIsInfoToolTipPopupOpen(true);
+  }
   //close modals
   function closeAllPopups() {
     // console.log("Popup was closed");
@@ -160,6 +173,8 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
+    // NOTE Close Info Tool Tip
+    setIsInfoToolTipPopupOpen(false);
     setSelectedCard({});
   }
   //Handle User Update
@@ -310,6 +325,13 @@ function App() {
             card={selectedCard}
             onClose={closeAllPopups}
             isOpen={isImagePopupOpen}
+          />
+
+          <InfoToolTip
+            isOpen={isInfoToolTipPopupOpen}
+            onClose={closeAllPopups}
+            onShowToolTip={handleInfoTooltip}
+            isvalidRegistration={isSuccessful}
           />
         </CurrentUserContext.Provider>
       </div>
