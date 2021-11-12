@@ -6,15 +6,15 @@ function Header({ email, handleLogOut, loggedIn }) {
   const handleAuthenticationRoutes = () => {
     if (location.pathname === "/signin") {
       return (
-        <a href="./signup" className="header__signup">
+        <Link to="/signup" className="header__signup">
           Sign up
-        </a>
+        </Link>
       );
     } else {
       return (
-        <a href="./signin" className="header__signup">
+        <Link to="/signin" className="header__signup">
           Sign in
-        </a>
+        </Link>
       );
     }
   };

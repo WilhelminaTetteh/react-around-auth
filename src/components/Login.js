@@ -1,11 +1,12 @@
 // eslint-disable-next-line
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
   //handle Login submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,39 +40,37 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <>
-      <div className="login">
-        <form className="login__form" onSubmit={handleSubmit}>
-          <p className="login__title">Log in</p>
-          <input
-            className="login__form-email login__input"
-            name="email"
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="login__form-password login__input"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleSubmit} className="login__submit">
-            Log in
-          </button>
-          {/* link to login page */}
-          <p className="login__text">
-            <Link className="login__link" to="/signup">
-              {" "}
-              Not a member? Sign Up here
-            </Link>
-          </p>
-        </form>
-      </div>
-    </>
+    <div className="login">
+      <form className="login__form" onSubmit={handleSubmit}>
+        <p className="login__title">Log in</p>
+        <input
+          className="login__form-email login__input"
+          name="email"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="login__form-password login__input"
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button style={{ color: "#000" }} className="login__submit">
+          Log in
+        </button>
+        {/* link to login page */}
+        <p className="login__text">
+          <Link className="login__link" to="/signup">
+            {" "}
+            Not a member? Sign Up here
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 };
 

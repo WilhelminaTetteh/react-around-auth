@@ -73,87 +73,6 @@ function App() {
         console.log(err);
       });
   }, []);
-  // REGISTRATION
-  const handleRegistration = (email, password) => {
-    if (email && password) {
-      auth
-        .register(email, password)
-        // We only want to redirect users after the registration form has been properly submitted
-        .then((res) => {
-          setIsSuccessful(true);
-          setIsInfoToolTipPopupOpen(true);
-          history.push("/signin");
-          return res;
-        });
-      // console.log("res good");
-    } else {
-      setIsSuccessful(false);
-      setIsInfoToolTipPopupOpen(true);
-      // console.log("res bad");
-      return setMessage(
-        "400 - one of the fields was filled in incorrectly"
-      );
-    }
-  };
-
-  //LOG IN
-  const handleLogin = (email, password) => {
-    auth
-      .authorize(email, password)
-      .then((data) => {
-        if (!data) {
-          return setMessage(
-            "one or more of the fields were not provided"
-          );
-        }
-        if (data) {
-          // set email
-          setEmail(email);
-          // TODO  handle login
-          setLoggedIn(true);
-          // redirect user to cards
-          history.push("/");
-          return;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setMessage(err.message);
-      });
-  };
-
-  //LOGOUT
-  function handleLogOut() {
-    localStorage.removeItem("jwt");
-    setLoggedIn(false);
-    setEmail("");
-    setPassword("");
-  }
-  const tokenCheck = () => {
-    // if user has a token in storage, check if it is valid
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
-      // make the request
-      auth
-        .getContent(jwt)
-        .then((res) => {
-          // if response is successful, log in the user
-          if (res) {
-            // NOTE  : set user data here to show in header
-            setEmail(res.data.email);
-            // const userData = {
-            //   email: res.email,
-            // };
-            handleLogin();
-            // setUserData(userData);
-            // also push user to the Home Page
-            return history.push("/");
-          }
-          console.log("something went wrong- tokencheck");
-        })
-        .catch((err) => console.log(err));
-    }
-  };
 
   //handlers for opening modals
   function handleEditAvatarClick() {
@@ -188,6 +107,18 @@ function App() {
     setIsInfoToolTipPopupOpen(false);
     setSelectedCard({});
   }
+  //ESC Close
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+    document.addEventListener("keydown", closeByEscape);
+    return () =>
+      document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
   //Handle User Update
   function handleUpdateUser({ name, about }) {
     api
@@ -266,6 +197,114 @@ function App() {
         console.log(err);
       });
   }
+  // REGISTRATION
+  const handleRegistration = (email, password) => {
+    auth
+      .register(email, password)
+      // We only want to redirect users after the registration form has been properly submitted
+      .then((res) => {
+        if (email && password) {
+          setIsSuccessful(true);
+          setIsInfoToolTipPopupOpen(true);
+          history.push("/signin");
+          // console.log("res good");
+          return res;
+        } else {
+          setIsSuccessful(false);
+        }
+      })
+      .catch((err) => {
+        setIsInfoToolTipPopupOpen(true);
+        console.log(err);
+        // console.log("res bad");
+        return setMessage(
+          "400 - one of the fields was filled in incorrectly"
+        );
+      });
+  };
+  // const handleRegistration = (email, password) => {
+  //   if (email && password) {
+  //     auth
+  //       .register(email, password)
+  //       // We only want to redirect users after the registration form has been properly submitted
+  //       .then((res) => {
+  //         setIsSuccessful(true);
+  //         setIsInfoToolTipPopupOpen(true);
+  //         history.push("/signin");
+  //         console.log("res good");
+  //         return res;
+  //       })
+  //       .catch((err) => {
+  //         setIsSuccessful(false);
+  //         setIsInfoToolTipPopupOpen(true);
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     // console.log("res bad");
+  //     return setMessage(
+  //       "400 - one of the fields was filled in incorrectly"
+  //     );
+  //   }
+  // };
+
+  //LOG IN
+  const handleLogin = (email, password) => {
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (!data) {
+          return setMessage(
+            "one or more of the fields were not provided"
+          );
+        }
+        if (data) {
+          // set
+          setEmail(email);
+          // TODO  handle login
+          setLoggedIn(true);
+          // redirect user to cards
+          history.push("/");
+          return;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(err.message);
+      });
+  };
+
+  //LOGOUT
+  function handleLogOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    setEmail("");
+    setPassword("");
+  }
+  const tokenCheck = () => {
+    // if user has a token in storage, check if it is valid
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      // make the request
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          // if response is successful, log in the user
+          if (res) {
+            setEmail(res.data.email);
+            setLoggedIn(true);
+            // also push user to the Home Page
+            return history.push("/");
+            // NOTE  : set user data in header. use This method for more than one userData
+            // const userData = {
+            //   email: res.email,
+            // };
+            // setUserData(userData);
+          }
+          console.log("something went wrong- tokencheck");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <div className="page">
@@ -329,14 +368,11 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
           />
 
-          <PopupWithForm name={`delete`} title={`Are you sure?`}>
-            <button
-              type="button"
-              className="form__button form__delete-confirmation"
-            >
-              Yes
-            </button>
-          </PopupWithForm>
+          <PopupWithForm
+            name={`delete`}
+            title={`Are you sure?`}
+            buttonText={`Yes`}
+          ></PopupWithForm>
 
           <ImagePopup
             card={selectedCard}

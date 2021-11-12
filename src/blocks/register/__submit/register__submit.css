@@ -9,7 +9,9 @@
   border: solid #ffffff;
   color: #000;
 }
-.register__submit:hover {
+.register__submit:hover,
+.register__submit:focus {
   background: #ffffff;
   opacity: 0.85;
+  color: #000;
 }

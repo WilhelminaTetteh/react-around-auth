@@ -1,26 +1,36 @@
+const authResponse = (res) => {
+  if (res.status === 201) {
+    return res.json();
+  }
+
+  return Promise.reject(`Error: ${res.status}`);
+};
 export const BASE_URL = "https://register.nomoreparties.co";
 
 export const register = (email, password) => {
   // your url will be different, of course
-  return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then((response) => {
-      // if response returns 201-created, parse the data and return to next handler
-      if (response.status === 201) {
-        return response.json();
-      }
+  return (
+    fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     })
-    .then((res) => {
-      // return the parsed data to client, this data includes a unique, signed JWT
-      console.log(res);
-      return res;
-    });
+      .then(authResponse)
+      // .then((response) => {
+      //   // if response returns 201-created, parse the data and return to next handler
+      //   if (response.status === 201) {
+      //     return response.json();
+      //   }
+      // })
+      .then((res) => {
+        // return the parsed data to client, this data includes a unique, signed JWT
+        console.log(res);
+        return res;
+      })
+  );
 };
 
 //Authorize User

@@ -34,39 +34,40 @@ const Register = ({ handleRegistration }) => {
   };
 
   return (
-    <>
-      <div className="register">
-        <form className="register__form">
-          <p className="register__title">Sign Up</p>
-          <input
-            className="register__form-email register__input"
-            name="email"
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="register__form-password register__input"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleSubmit} className="register__submit">
-            Sign up
-          </button>
-          {/* link to login page */}
-          <p className="register__text">
-            <Link className="register__link" to="/signin">
-              {" "}
-              Already a member? Log in here
-            </Link>
-          </p>
-        </form>
-      </div>
-    </>
+    <div className="register">
+      <form onSubmit={handleSubmit} className="register__form">
+        <p className="register__title">Sign Up</p>
+        <input
+          className="register__form-email register__input"
+          name="email"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="register__form-password register__input"
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          style={{ color: "#000" }}
+          className="register__submit"
+        >
+          Sign up
+        </button>
+        {/* link to login page */}
+        <p className="register__text">
+          <Link className="register__link" to="/signin">
+            {" "}
+            Already a member? Log in here
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 };
 
