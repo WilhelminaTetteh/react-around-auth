@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-const cardLinkRef = React.useRef();
-const cardNameRef = React.useRef();
-  
+  const cardLinkRef = React.useRef();
+  const cardNameRef = React.useRef();
+
   function handleSubmit(e) {
     e.preventDefault();
     //added props.
@@ -13,7 +13,7 @@ const cardNameRef = React.useRef();
       name: cardNameRef.current.value,
     });
   }
-  
+
   return (
     <PopupWithForm
       name={`add-card`}
@@ -31,6 +31,7 @@ const cardNameRef = React.useRef();
           placeholder="Title"
           className="form__input form__input_type_card-title"
           name="name"
+          style={{ color: "#000" }}
         />
         <span id="card-title-error" className="form__error"></span>
       </label>
@@ -43,6 +44,7 @@ const cardNameRef = React.useRef();
           placeholder="Image link"
           className="form__input form__input_type_url"
           name="link"
+          style={{ color: "#000" }}
         />
         <span id="card-url-error" className="form__error"></span>
       </label>
@@ -50,14 +52,14 @@ const cardNameRef = React.useRef();
   );
 }
 
-export default AddPlacePopup
+export default AddPlacePopup;
 // import React from 'react'
 // import PopupWithForm from "./PopupWithForm";
 
 // function AddPlacePopup(props) {
 // const cardLinkRef = React.useRef();
 // const cardNameRef = React.useRef();
-  
+
 //   function handleSubmit(e) {
 //     e.preventDefault();
 //     //added props.
@@ -66,7 +68,7 @@ export default AddPlacePopup
 //       name: cardNameRef.current.value,
 //     });
 //   }
-  
+
 //   return (
 //     <PopupWithForm
 //       name={`add-card`}

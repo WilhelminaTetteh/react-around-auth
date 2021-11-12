@@ -20,3 +20,8 @@
   color: #ffffff;
   text-decoration: none;
 }
+@media screen and (max-width: 768px) {
+  .header__signup {
+    font-size: 12px;
+  }
+}

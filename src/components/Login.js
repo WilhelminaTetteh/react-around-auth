@@ -15,6 +15,7 @@ const Login = ({ handleLogin }) => {
       return;
     }
     handleLogin(email, password);
+    // history.push("/");
     // auth
     //   .authorize(email, password)
     //   .then((data) => {

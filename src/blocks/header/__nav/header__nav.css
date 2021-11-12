@@ -2,3 +2,16 @@
   display: flex;
   height: 22px;
 }
+@media screen and (max-width: 768px) {
+  .header__nav {
+    margin-top: 35px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .header__nav {
+    /* margin-top: 25px; */
+
+    flex-direction: column-reverse;
+    height: 46px;
+  }
+}

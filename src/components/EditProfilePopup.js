@@ -48,6 +48,7 @@ function EditProfilePopup(props) {
           id="profile-name"
           type="text"
           placeholder="Name"
+          style={{ color: "#000" }}
           className="form__input form__input_type_title"
           name="title"
         />
@@ -63,6 +64,7 @@ function EditProfilePopup(props) {
           placeholder="About me"
           className="form__input form__input_type_description"
           name="description"
+          style={{ color: "#000" }}
         />
         <span id="profile-text-error" className="form__error"></span>
       </label>

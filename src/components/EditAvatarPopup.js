@@ -26,6 +26,7 @@ function EditAvatarPopup(props) {
           placeholder="Image link"
           className="form__input form__input_type_url form__input_type_avatar-url"
           name="link"
+          style={{ color: "#000" }}
         />
         <span id="avatar-url-error" className="form__error"></span>
       </label>

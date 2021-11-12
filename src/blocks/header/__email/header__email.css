@@ -7,3 +7,8 @@
   color: #ffffff;
   margin-right: 24px;
 }
+@media screen and (max-width: 768px) {
+  .header__email {
+    font-size: 12px;
+  }
+}

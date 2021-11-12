@@ -293,7 +293,7 @@ function App() {
             setEmail(res.data.email);
             setLoggedIn(true);
             // also push user to the Home Page
-            return history.push("/");
+            history.push("/");
             // NOTE  : set user data in header. use This method for more than one userData
             // const userData = {
             //   email: res.email,
