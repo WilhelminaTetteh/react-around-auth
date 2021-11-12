@@ -38,8 +38,8 @@ function App() {
   const [cards, setCards] = useState([]);
   //loggedin state
   const [loggedIn, setLoggedIn] = React.useState(false);
-  // NOTE  use userData to show user email on the nav
-  const [userData, setUserData] = useState({});
+  // use userData to show user email on the nav
+  // const [userData, setUserData] = useState({});
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -107,12 +107,11 @@ function App() {
           );
         }
         if (data) {
-          // reset the state
-          setEmail("");
-          setPassword("");
+          // set state again
+          setEmail(email);
           // TODO  handle login
           setLoggedIn(true);
-          // redirect user to /profile
+          // redirect user to cards
           history.push("/");
           return;
         }
@@ -123,24 +122,36 @@ function App() {
       });
   };
 
+  //LOGOUT
+  function handleLogOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    setEmail("");
+    setPassword("");
+  }
   const tokenCheck = () => {
     // if user has a token in storage, check if it is valid
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
       // make the request
-      auth.getContent(jwt).then((res) => {
-        // if response is successful, log in the user
-        if (res) {
-          const userData = {
-            email: res.email,
-          };
-          handleLogin();
-          setUserData(userData);
-          // also push user to the Home Page
-          return history.push("/");
-        }
-        console.log("something went wrong- tokencheck");
-      });
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          // if response is successful, log in the user
+          if (res) {
+            // NOTE  : set user data here to show in header
+            setEmail(res.data.email);
+            // const userData = {
+            //   email: res.email,
+            // };
+            handleLogin();
+            // setUserData(userData);
+            // also push user to the Home Page
+            return history.push("/");
+          }
+          console.log("something went wrong- tokencheck");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -260,7 +271,12 @@ function App() {
     <div className="page">
       <div className="page__container">
         <CurrentUserContext.Provider value={currentUser}>
-          <Header userData={userData} />
+          <Header
+            // userData={userData}
+            email={email}
+            loggedIn={loggedIn}
+            handleLogOut={handleLogOut}
+          />
           <Switch>
             <ProtectedRoute
               component={Main}
@@ -274,6 +290,7 @@ function App() {
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
+              email={email}
             />
             <Route path="/signup">
               <Register handleRegistration={handleRegistration} />

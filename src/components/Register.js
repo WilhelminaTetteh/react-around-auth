@@ -1,15 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import * as auth from "../utils/auth";
-import { useHistory } from "react-router";
 
 const Register = ({ handleRegistration }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const history = useHistory();
 
   // use it in the submission handler
   // const handleSubmit = (e) => {

@@ -9,8 +9,6 @@
   border: solid #ffffff;
   color: #000;
 }
-/* .register__submit:hover,
-:focus,
-:active {
+.register__submit:active {
   color: #000;
-} */
+}

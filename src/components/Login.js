@@ -2,21 +2,15 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import * as auth from "../utils/auth";
-import { useHistory } from "react-router";
 
 const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
-  const history = useHistory();
-
   //handle Login submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
-      // handle invalid entries appropriately
+      // handle invalid entries
       return;
     }
     handleLogin(email, password);

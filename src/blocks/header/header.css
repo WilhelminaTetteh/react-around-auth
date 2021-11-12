@@ -1,6 +1,8 @@
 @import url("./__signup/header__signup.css");
 @import url("./__signin/header__signin.css");
 @import url("./__logout/header__logout.css");
+@import url("./__nav/header__nav.css");
+@import url("./__email/header__email.css");
 
 .header {
   max-width: 880px;

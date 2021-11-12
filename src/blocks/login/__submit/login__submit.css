@@ -9,8 +9,6 @@
   border: solid #ffffff;
   color: #000;
 }
-/* .login__submit:hover,
-:focus,
-:active {
+.login__submit:active {
   color: #000;
-} */
+}
