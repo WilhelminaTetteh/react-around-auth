@@ -43,7 +43,7 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => response.json())
+    .then(authResponse)
     .then((data) => {
       // does data have a jwt in it?
       if (data.token) {
@@ -64,7 +64,7 @@ export const getContent = (token) => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => res.json())
+      .then(authResponse)
       // NOTE   received data will include user data, such as email
       .then((data) => {
         return data;
