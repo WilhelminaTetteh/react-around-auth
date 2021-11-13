@@ -1,5 +1,5 @@
 const authResponse = (res) => {
-  if (res.status === 201) {
+  if (res) {
     return res.json();
   }
 
